@@ -9,8 +9,6 @@ Django REST Framework v3.11
 MySql(Maria DB) / SQLLite
 
 
-Tasks Completed:
-
 1. Created necessary table's
 Table and Column:
 i. user - id, mobileno(primary key), email_id, name, user_type, password(encrypted and hashed), is_active, created_date, last_login
