@@ -1,0 +1,105 @@
+1)	Clone/download e-wallet project from git hub.
+
+Unzip mobilewallet2020 project into any newly created folder.
+
+
+2)	Navigate to the mobilewallet2020/walletservice project and locate settings.py
+
+Configure the settings accordingly in settings.py
+
+a)	Log Path and Log File Name:
+LOG_DIR = os.path.join(os.getcwd(), 'Logs') ## specified default Logs in current directory of walletservice app
+
+LOGGING = {
+….
+}
+Rename log file name accordingly if needed
+	'filename': os.path.join(LOG_DIR, 'walletservice.log'),
+	'filename':  os.path.join(LOG_DIR, 'walletservice_request.log'),
+
+b)	Configure the mail account 
+##SMTP Mail configurations###
+
+EMAIL_BACKEND ="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "mobilewalletadmin@gmail.com"
+EMAIL_HOST_PASSWORD = "YYY"
+
+c)	Database Configuration:
+
+SQLLITE_DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+
+MYSQL_DB={
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mobilewallet2020', ## make sure that database is #created before running application
+        'USER': “XX”,
+        'PASSWORD': “YY”,
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+DATABASES = SQLLITE_DATABASES ##(default) specify SQLITE or MYSQL_DB
+
+3)	Create virtual environment:
+Locate requirements.txt file in mobilewallet2020 project and note down the path.
+
+a)	Open command prompt & create new dir for virtual_envs
+
+Eg: C:\Users\XXX\virtual_envs
+	mkdir  virtual_env_test
+	python -m venv  .
+	python -m pip install --upgrage pip
+
+b)	virtual env will be created. Change to Scripts folder and locate activate.bat and execute the same to activate virtual env.
+Assume current directory is:
+C:\Users\XXX\virtual_envs\virtual_env_test\
+
+Execute below commands:
+cd Scripts
+   	activate.bat (if windows)
+       	     C:\Users\XXX\virtual_envs\virtual_env_test\Scripts>activate.bat
+
+source activate ( if unix/macos)
+
+	(virtual_env_test) C:\Users\XXX\virtual_envs\virtual_env_test\Scripts>
+
+	pip install -r mobilewallet2020/requirements.txt
+
+c)	Virtual env is ready & required dependencies are installed.
+Navigate to mobilewallet2020 project directory and locate manage.py(note:make sure that necessary changes are made in settings.py as above)
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+
+python manage.py runserver portnumber
+
+python manage.py runserver 8000
+
+
+application is started and running: http://127.0.0.1:8000/ 
+
+
+d)	Create superuser:
+stop server and create superuser
+
+python manage.py createsuperuser 
+
+specify required input and start server again 
+
+
+
+open below URL in browser and login with super user credentials
+http://127.0.0.1:8000/admin/
+
